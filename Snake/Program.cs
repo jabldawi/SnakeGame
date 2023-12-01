@@ -59,6 +59,9 @@ class Program
         while (loop)
 
         {
+            ////Poprzednia pozycja głowy
+            prevX = teljePositie[^1].xPos;
+            prevY = teljePositie[^1].yPos;
 
             //Rysuje Pokarm
             food.DrawPixel();
@@ -86,6 +89,13 @@ class Program
 
             if (Console.KeyAvailable)
                 info = Console.ReadKey().Key;
+
+            //Ruch ogona
+            for (int i = teljePositie.Count - 1; i > 0; i--)
+            {
+                teljePositie[i].xPos = teljePositie[i - 1].xPos;
+                teljePositie[i].yPos = teljePositie[i - 1].yPos;
+            }
 
             //Ruch głowy
             switch (info)
@@ -117,6 +127,7 @@ class Program
             {
                 score++;
                 food = new Obstacle(screenwidth, screenheight);
+                teljePositie.Add(new Pixel(prevX, prevY));
             }
 
             //Kolizja z ramką 
