@@ -59,9 +59,10 @@ class Program
         while (loop)
 
         {
-            ////Poprzednia pozycja głowy
+            //Poprzednia pozycja głowy
             prevX = teljePositie[^1].xPos;
             prevY = teljePositie[^1].yPos;
+
 
             //Rysuje Pokarm
             food.DrawPixel();
@@ -90,12 +91,14 @@ class Program
             if (Console.KeyAvailable)
                 info = Console.ReadKey().Key;
 
-            //Ruch ogona
+
+            Ruch ogona
             for (int i = teljePositie.Count - 1; i > 0; i--)
             {
                 teljePositie[i].xPos = teljePositie[i - 1].xPos;
                 teljePositie[i].yPos = teljePositie[i - 1].yPos;
             }
+
 
             //Ruch głowy
             switch (info)
@@ -130,6 +133,17 @@ class Program
                 teljePositie.Add(new Pixel(prevX, prevY));
             }
 
+
+            //Kolizja z ciałem
+            for (int i = 1; i < teljePositie.Count; i++)
+            {
+                if (head.xPos == teljePositie[i].xPos && head.yPos == teljePositie[i].yPos)
+                {
+                    loop = false;
+                }
+            }
+
+
             //Kolizja z ramką 
             if (head.xPos == 0 || head.xPos == screenwidth - 1 || head.yPos == 0 || head.yPos == screenheight - 1)
             {
@@ -137,15 +151,20 @@ class Program
             }
 
 
-            //Czyszczenie okna:  
-            for (int i = 1; i < screenheight - 1; i++)
-            {
-                for (int j = 1; j < screenwidth - 1; j++)
-                {
-                    Console.SetCursorPosition(j, i);
-                    Console.Write(" ");
-                }
-            }
+            ////Czyszczenie okna:  
+            //for (int i = 1; i < screenheight - 1; i++)
+            //{
+            //    for (int j = 1; j < screenwidth - 1; j++)
+            //    {
+            //        Console.SetCursorPosition(j, i);
+            //        Console.Write(" ");
+            //    }
+            //}
+
+            //Lepsze czyszczenie okna
+            Console.SetCursorPosition(prevX, prevY);
+            Console.Write(" ");
+
         }
 
         //Podsumowanie i zakończenie:
