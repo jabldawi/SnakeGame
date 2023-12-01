@@ -92,7 +92,7 @@ class Program
                 info = Console.ReadKey().Key;
 
 
-            Ruch ogona
+            //Ruch ogona
             for (int i = teljePositie.Count - 1; i > 0; i--)
             {
                 teljePositie[i].xPos = teljePositie[i - 1].xPos;
